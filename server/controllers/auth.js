@@ -42,7 +42,7 @@ export const register = async (req, res) => {
 //login 
 export const login = async (req, res)=>{
     try {
-        const { email, password } = req.body,
+        const { email, password } = req.body;
         const user = await User.findOne({ email: email });
         if (!user) return res.status(400).json({ msg: "user doesnt exist" })
         
@@ -52,7 +52,7 @@ export const login = async (req, res)=>{
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         delete user.password;
         res.status(202).json({ token, user });
-        
+
     } catch (err) {
         res.status(501).json({ error: err.message });
     }
